@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StudyNova — Student Utility Hub</title>
+<meta name="description" content="StudyNova is a free student utility hub with calculators, study tools, notes and productivity tools.">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #182033;
+    --muted: #687386;
+    --primary: #635bff;
+    --primary-dark: #5148e8;
+    --border: #e7eaf0;
+    --shadow: 0 15px 45px rgba(31, 41, 55, 0.08);
+    --danger: #ef4444;
+}
+
+body.dark {
+    --bg: #0d111c;
+    --card: #151b29;
+    --text: #f4f7ff;
+    --muted: #9aa5b8;
+    --border: #263044;
+    --shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.25s;
+}
+
+/* NAVBAR */
+
+.navbar {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+}
+
+body.dark .navbar {
+    background: rgba(13,17,28,0.88);
+}
+
+.nav-container {
+    max-width: 1180px;
+    margin: auto;
+    height: 72px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    transition: .2s;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+/* HERO */
+
+.hero {
+    max-width: 1180px;
+    margin: auto;
+    padding: 85px 20px 65px;
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(99,91,255,.1);
+    color: var(--primary);
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    max-width: 850px;
+    margin: auto;
+    font-size: clamp(40px, 7vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.gradient {
+    color: var(--primary);
+}
+
+.hero p {
+    max-width: 650px;
+    margin: 24px auto;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    border: none;
+    padding: 14px 22px;
+    border-radius: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .2s;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+/* SEARCH */
+
+.search-area {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    padding: 0 20px;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 17px 50px 17px 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: var(--card);
+    color: var(--text);
+    outline: none;
+    font-size: 16px;
+    box-shadow: var(--shadow);
+}
+
+.search-icon {
+    position: absolute;
+    right: 18px;
+    top: 15px;
+    font-size: 20px;
+}
+
+/* SECTION */
+
+.section {
+    max-width: 1180px;
+    margin: auto;
+    padding: 20px;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-heading h2 {
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    color: var(--muted);
+}
+
+/* TOOLS */
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: .25s;
+}
+
+.tool-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary);
+}
+
+.tool-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    background: rgba(99,91,255,.1);
+    font-size: 25px;
+    margin-bottom: 17px;
+}
+
+.tool-card h3 {
+    margin-bottom: 8px;
+}
+
+.tool-card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 570px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--card);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.25);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.close-btn {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    outline: none;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+}
+
+.form-group textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.result {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(99,91,255,.1);
+    color: var(--text);
+    font-weight: 700;
+    line-height: 1.7;
+}
+
+/* CALCULATOR */
+
+.calc-display {
+    width: 100%;
+    padding: 18px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 28px;
+    text-align: right;
+    outline: none;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 9px;
+}
+
+.calc-grid button {
+    height: 58px;
+    border: none;
+    border-radius: 13px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.calc-grid button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.calc-grid .operator {
+    background: rgba(99,91,255,.12);
+    color: var(--primary);
+    font-weight: 800;
+}
+
+/* TIMER */
+
+.timer {
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 65px;
+    font-weight: 900;
+    margin: 25px 0;
+    letter-spacing: 2px;
+}
+
+.timer-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* FEATURES */
+
+.features {
+    max-width: 1180px;
+    margin: 70px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.feature {
+    padding: 28px;
+    border-radius: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+
+.feature-icon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.feature p {
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 80px;
+    padding: 45px 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+footer .logo {
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+footer p {
+    color: var(--muted);
+}
+
+.footer-links {
+    margin-top: 18px;
+}
+
+.footer-links a {
+    color: var(--muted);
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 950px) {
+    .tools-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 600px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 55px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .timer-display {
+        font-size: 50px;
+    }
+
+    .modal-box {
+        padding: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+    <div class="nav-container">
+
+        <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            Study<span>Nova</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#tools">Tools</a>
+            <a href="#features">Features</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">
+                🌙
+            </button>
+
+            <button class="icon-btn mobile-menu" onclick="document.querySelector('.nav-links').style.display =
+            document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
+                ☰
+            </button>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="badge">✨ Free Student Utility Hub</div>
+
+    <h1>
+        Everything Students Need,
+        <span class="gradient">In One Place.</span>
+    </h1>
+
+    <p>
+        Study smarter with free calculators, productivity tools,
+        notes and useful utilities designed for students.
+    </p>
+
+    <div class="hero-buttons">
+        <button class="primary-btn" onclick="document.getElementById('tools').scrollIntoView()">
+            Explore Tools →
+        </button>
+
+        <button class="secondary-btn" onclick="openTool('notes')">
+            📝 Open Notes
+        </button>
+    </div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<div class="search-area">
+    <div class="search-box">
+        <input
+            type="text"
+            id="toolSearch"
+            placeholder="Search a tool... e.g. percentage, calculator, timer"
+            oninput="searchTools()"
+        >
+        <span class="search-icon">🔍</span>
+    </div>
+</div>
+
+
+<!-- TOOLS -->
+
+<section class="section" id="tools">
+
+    <div class="section-heading">
+        <h2>Popular Tools</h2>
+        <p>Simple tools that can make student life easier.</p>
+    </div>
+
+    <div class="tools-grid" id="toolsGrid">
+
+        <div class="tool-card" data-name="calculator scientific calculator"
+             onclick="openTool('calculator')">
+            <div class="tool-icon">🧮</div>
+            <h3>Calculator</h3>
+            <p>Fast and modern calculator for everyday calculations.</p>
+        </div>
+
+        <div class="tool-card" data-name="percentage marks percentage calculator"
+             onclick="openTool('percentage')">
+            <div class="tool-icon">📊</div>
+            <h3>Percentage</h3>
+            <p>Calculate marks percentage quickly and easily.</p>
+        </div>
+
+        <div class="tool-card" data-name="cgpa gpa grade calculator"
+             onclick="openTool('cgpa')">
+            <div class="tool-icon">🎓</div>
+            <h3>CGPA Calculator</h3>
+            <p>Calculate your GPA and CGPA using subject grades.</p>
+        </div>
+
+        <div class="tool-card" data-name="study timer pomodoro focus"
+             onclick="openTool('timer')">
+            <div class="tool-icon">⏱️</div>
+            <h3>Study Timer</h3>
+            <p>Use a simple focus timer for productive study sessions.</p>
+        </div>
+
+        <div class="tool-card" data-name="notes notepad save notes"
+             onclick="openTool('notes')">
+            <div class="tool-icon">📝</div>
+            <h3>Smart Notes</h3>
+            <p>Write and save notes directly in your browser.</p>
+        </div>
+
+        <div class="tool-card" data-name="word counter words characters"
+             onclick="openTool('words')">
+            <div class="tool-icon">🔤</div>
+            <h3>Word Counter</h3>
+            <p>Count words, characters and sentences instantly.</p>
+        </div>
+
+        <div class="tool-card" data-name="unit converter conversion"
+             onclick="openTool('converter')">
+            <div class="tool-icon">🔄</div>
+            <h3>Unit Converter</h3>
+            <p>Convert common units such as km, miles, kg and pounds.</p>
+        </div>
+
+        <div class="tool-card" data-name="age calculator birthday"
+             onclick="openTool('age')">
+            <div class="tool-icon">🎂</div>
+            <h3>Age Calculator</h3>
+            <p>Calculate your exact age from your date of birth.</p>
+        </div>
+
+        <div class="tool-card" data-name="percentage increase decrease"
+             onclick="openTool('increase')">
+            <div class="tool-icon">📈</div>
+            <h3>Increase / Decrease</h3>
+            <p>Calculate percentage increase or decrease between numbers.</p>
+        </div>
+
+        <div class="tool-card" data-name="password generator security"
+             onclick="openTool('password')">
+            <div class="tool-icon">🔐</div>
+            <h3>Password Generator</h3>
+            <p>Create strong random passwords for your accounts.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+    <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast & Simple</h3>
+        <p>
+            Tools are designed to be quick and easy to use without unnecessary complexity.
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>Mobile Friendly</h3>
+        <p>
+            StudyNova works on phones, tablets and computers.
+        </p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Privacy Friendly</h3>
+        <p>
+            Most tools run directly in your browser without sending your information anywhere.
+        </p>
+    </div>
+
+</section>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="toolModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h2 id="modalTitle">Tool</h2>
+            <button class="close-btn" onclick="closeTool()">×</button>
+        </div>
+
+        <div id="toolContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="logo">
+        Study<span>Nova</span>
+    </div>
+
+    <p>Free tools for smarter studying.</p>
+
+    <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="#features">Features</a>
+    </div>
+
+    <p style="margin-top:20px;font-size:13px;">
+        © 2026 StudyNova. All rights reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   THEME
+========================= */
+
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "studynova-theme",
+        document.body.classList.contains("dark") ? "dark" : "light"
+    );
+}
+
+if (localStorage.getItem("studynova-theme") === "dark") {
+    document.body.classList.add("dark");
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchTools() {
+
+    const query = document
+        .getElementById("toolSearch")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll(".tool-card").forEach(card => {
+
+        const name = card.dataset.name.toLowerCase();
+
+        card.style.display =
+            name.includes(query) ? "block" : "none";
+
+    });
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+const modal = document.getElementById("toolModal");
+const modalTitle = document.getElementById("modalTitle");
+const toolContent = document.getElementById("toolContent");
+
+function openTool(tool) {
+
+    modal.classList.add("show");
+
+    if (tool === "calculator") calculator();
+    if (tool === "percentage") percentage();
+    if (tool === "cgpa") cgpa();
+    if (tool === "timer") timer();
+    if (tool === "notes") notes();
+    if (tool === "words") words();
+    if (tool === "converter") converter();
+    if (tool === "age") ageCalculator();
+    if (tool === "increase") increaseDecrease();
+    if (tool === "password") passwordGenerator();
+}
+
+function closeTool() {
+    modal.classList.remove("show");
+}
+
+window.addEventListener("click", function(e) {
+    if (e.target === modal) {
+        closeTool();
+    }
+});
+
+
+/* =========================
+   CALCULATOR
+========================= */
+
+function calculator() {
+
+    modalTitle.textContent = "🧮 Calculator";
+
+    toolContent.innerHTML = `
+
+        <input
+            id="calcDisplay"
+            class="calc-display"
+            readonly
+            value="0"
+        >
+
+        <div class="calc-grid">
+
+            <button onclick="clearCalc()">C</button>
+            <button onclick="backspaceCalc()">⌫</button>
+            <button onclick="addCalc('%')" class="operator">%</button>
+            <button onclick="addCalc('/')" class="operator">÷</button>
+
+            <button onclick="addCalc('7')">7</button>
+            <button onclick="addCalc('8')">8</button>
+            <button onclick="addCalc('9')">9</button>
+            <button onclick="addCalc('*')" class="operator">×</button>
+
+            <button onclick="addCalc('4')">4</button>
+            <button onclick="addCalc('5')">5</button>
+            <button onclick="addCalc('6')">6</button>
+            <button onclick="addCalc('-')" class="operator">−</button>
+
+            <button onclick="addCalc('1')">1</button>
+            <button onclick="addCalc('2')">2</button>
+            <button onclick="addCalc('3')">3</button>
+            <button onclick="addCalc('+')" class="operator">+</button>
+
+            <button onclick="addCalc('0')" style="grid-column:span 2">0</button>
+            <button onclick="addCalc('.')">.</button>
+            <button onclick="calculateResult()" class="operator">=</button>
+
+        </div>
+    `;
+}
+
+function addCalc(value) {
+
+    const display = document.getElementById("calcDisplay");
+
+    if (display.value === "0") {
+        display.value = value;
+    } else {
+        display.value += value;
+    }
+}
+
+function clearCalc() {
+    document.getElementById("calcDisplay").value = "0";
+}
+
+function backspaceCalc() {
+
+    const display = document.getElementById("calcDisplay");
+
+    display.value =
+        display.value.length > 1
+        ? display.value.slice(0,-1)
+        : "0";
+}
+
+function calculateResult() {
+
+    const display = document.getElementById("calcDisplay");
+
+    try {
+
+        let expression = display.value;
+
+        if (!/^[0-9+\-*/%.() ]+$/.test(expression)) {
+            throw new Error();
+        }
+
+        display.value = Function(
+            '"use strict"; return (' + expression + ')'
+        )();
+
+    } catch {
+        display.value = "Error";
+    }
+}
+
+
+/* =========================
+   PERCENTAGE
+========================= */
+
+function percentage() {
+
+    modalTitle.textContent = "📊 Percentage Calculator";
+
+    toolContent.innerHTML = `
+
+        <div class="form-group">
+            <label>Obtained Marks</label>
+            <input id="obtained" type="number" placeholder="e.g. 870">
+        </div>
+
+        <div class="form-group">
+            <label>Total Marks</label>
+            <input id="total" type="number" placeholder="e.g. 1100">
+        </div>
+
+        <button class="primary-btn" onclick="calculatePercentage()">
+            Calculate Percentage
+        </button>
+
+        <div id="percentageResult"></div>
+    `;
+}
+
+function calculatePercentage() {
+
+    const obtained = Number(document.getElementById("obtained").value);
+    const total = Number(document.getElementById("total").value);
+
+    if (total <= 0 || obtained < 0) {
+        document.getElementById("percentageResult").innerHTML =
+            `<div class="result">Please enter valid marks.</div>`;
+        return;
+    }
+
+    const result = (obtained / total) * 100;
+
+    document.getElementById("percentageResult").innerHTML = `
+        <div class="result">
+            Your Percentage: ${result.toFixed(2)}%
+        </div>
+    `;
+}
+
+
+/* =========================
+   CGPA
+========================= */
+
+function cgpa() {
+
+    modalTitle.textContent = "🎓 CGPA Calculator";
+
+    toolContent.innerHTML = `
+
+        <p style="color:var(--muted);margin-bottom:15px;">
+            Enter your GPA for each subject.
+        </p>
+
+        <div id="subjects">
+
+            <div class="form-group">
+                <label>Subject 1 GPA</label>
+                <input class="gpa-input" type="number" min="0" max="4" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label>Subject 2 GPA</label>
+                <input class="gpa-input" type="number" min="0" max="4" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label>Subject 3 GPA</label>
+                <input class="gpa-input" type="number" min="0" max="4" step="0.01">
+            </div>
+
+        </div>
+
+        <button class="secondary-btn" onclick="addSubject()">
+            + Add Subject
+        </button>
+
+        <br><br>
+
+        <button class="primary-btn" onclick="calculateCGPA()">
+            Calculate CGPA
+        </button>
+
+        <div id="cgpaResult"></div>
+    `;
+}
+
+function addSubject() {
+
+    const container = document.getElementById("subjects");
+
+    const count =
+        container.querySelectorAll(".gpa-input").length + 1;
+
+    container.innerHTML += `
+        <div class="form-group">
+            <label>Subject ${count} GPA</label>
+            <input class="gpa-input" type="number" min="0" max="4" step="0.01">
+        </div>
+    `;
+}
+
+function calculateCGPA() {
+
+    const inputs =
+        document.querySelectorAll(".gpa-input");
+
+    let total = 0;
+    let count = 0;
+
+    inputs.forEach(input => {
+
+        const value = Number(input.value);
+
+        if (value >= 0 && value <= 4) {
+            total += value;
+            count++;
+        }
+    });
+
+    if (count === 0) {
+        document.getElementById("cgpaResult").innerHTML =
+            `<div class="result">Please enter your GPA.</div>`;
+        return;
+    }
+
+    const cgpaValue = total / count;
+
+    document.getElementById("cgpaResult").innerHTML = `
+        <div class="result">
+            Your CGPA: ${cgpaValue.toFixed(2)} / 4.00
+        </div>
+    `;
+}
+
+
+/* =========================
+   STUDY TIMER
+========================= */
+
+let timerInterval;
+let timerSeconds = 25 * 60;
+
+function timer() {
+
+    modalTitle.textContent = "⏱️ Study Timer";
+
+    toolContent.innerHTML = `
+
+        <div class="timer">
+
+            <p style="color:var(--muted)">
+                Focus for 25 minutes, then take a short break.
+            </p>
+
+            <div class="timer-display" id="timerDisplay">
+                25:00
+            </div>
+
+            <div class="timer-buttons">
+
+                <button class="primary-btn" onclick="startTimer()">
+                    ▶ Start
+                </button>
+
+                <button class="secondary-btn" onclick="pauseTimer()">
+                    ⏸ Pause
+                </button>
+
+                <button class="secondary-btn" onclick="resetTimer()">
+                    ↻ Reset
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    updateTimerDisplay();
+}
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+
+        if (timerSeconds <= 0) {
+
+            clearInterval(timerInterval);
+
+            alert("🎉 Study session complete!");
+
+            return;
+        }
+
+        timerSeconds--;
+
+        updateTimerDisplay();
+
+    },1000);
+}
+
+function pauseTimer() {
+    clearInterval(timerInterval);
+}
+
+function resetTimer() {
+
+    clearInterval(timerInterval);
+
+    timerSeconds = 25 * 60;
+
+    updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+
+    const display =
+        document.getElementById("timerDisplay");
+
+    if (!display) return;
+
+    const minutes =
+        Math.floor(timerSeconds / 60)
+        .toString()
+        .padStart(2,"0");
+
+    const seconds =
+        (timerSeconds % 60)
+        .toString()
+        .padStart(2,"0");
+
+    display.textContent =
+        `${minutes}:${seconds}`;
+}
+
+
+/* =========================
+   NOTES
+========================= */
+
+function notes() {
+
+    modalTitle.textContent = "📝 Smart Notes";
+
+    const saved =
+        localStorage.getItem("studynova-notes") || "";
+
+    toolContent.innerHTML = `
+
+        <div class="form-group">
+
+            <label>Your Notes</label>
+
+            <textarea
+                id="notesArea"
+                placeholder="Write your notes here..."
+            >${escapeHTML(saved)}</textarea>
+
+        </div>
+
+        <button class="primary-btn" onclick="saveNotes()">
+            💾 Save Notes
+        </button>
+
+        <button class="secondary-btn" onclick="clearNotes()">
+            Clear
+        </button>
+
+        <div id="notesMessage"></div>
+    `;
+}
+
+function saveNotes() {
+
+    const text =
+        document.getElementById("notesArea").value;
+
+    localStorage.setItem("studynova-notes",text);
+
+    document.getElementById("notesMessage").innerHTML =
+        `<div class="result">✅ Notes saved in your browser.</div>`;
+}
+
+function clearNotes() {
+
+    document.getElementById("notesArea").value = "";
+
+    localStorage.removeItem("studynova-notes");
+}
+
+function escapeHTML(text) {
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   WORD COUNTER
+========================= */
+
+function words() {
+
+    modalTitle.textContent = "🔤 Word Counter";
+
+    toolContent.innerHTML = `
+
+        <div class="form-group">
+
+            <label>Enter Text</label>
+
+            <textarea
+                id="wordText"
+                oninput="countWords()"
+                placeholder="Type or paste your text..."
+            ></textarea>
+
+        </div>
+
+        <div id="wordResult">
+            <div class="result">
+                Words: 0<br>
+                Characters: 0<br>
+                Sentences: 0
+            </div>
+        </div>
+    `;
+}
+
+function countWords() {
+
+    const text =
+        document.getElementById("wordText").value;
+
+    const wordCount =
+        text.trim() === ""
+        ? 0
+        : text.trim().split(/\s+/).length;
+
+    const characterCount =
+        text.length;
+
+    const sentenceCount =
+        text.trim() === ""
+        ? 0
+        : text.split(/[.!?]+/)
+            .filter(x => x.trim().length > 0)
+            .length;
+
+    document.getElementById("wordResult").innerHTML = `
+        <div class="result">
+            Words: ${wordCount}<br>
+            Characters: ${characterCount}<br>
+            Sentences: ${sentenceCount}
+        </div>
+    `;
+}
+
+
+/* =========================
+   UNIT CONVERTER
+========================= */
+
+function converter() {
+
+    modalTitle.textContent = "🔄 Unit Converter";
+
+    toolContent.innerHTML = `
+
+        <div class="form-group">
+
+            <label>Conversion Type</label>
+
+            <select id="conversionType">
+                <option value="km-miles">Kilometers → Miles</option>
+                <option value="miles-km">Miles → Kilometers</option>
+                <option value="kg-lb">Kilograms → Pounds</option>
+                <option value="lb-kg">Pounds → Kilograms</option>
+                <option value="c-f">Celsius → Fahrenheit</option>
+                <option value="f-c">Fahrenheit → Celsius</option>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Value</label>
+
+            <input
+                id="convertValue"
+                type="number"
+                placeholder="Enter value"
+            >
+
+        </div>
+
+        <button class="primary-btn" onclick="convertUnit()">
+            Convert
+        </button>
+
+        <div id="conversionResult"></div>
+    `;
+}
+
+function convertUnit() {
+
+    const type =
+        document.getElementById("conversionType").value;
+
+    const value =
+        Number(document.getElementById("convertValue").value);
+
+    let result;
+
+    if (type === "km-miles") {
+        result = value * 0.621371;
+    }
+
+    if (type === "miles-km") {
+        result = value * 1.609344;
+    }
+
+    if (type === "kg-lb") {
+        result = value * 2.2046226218;
+    }
+
+    if (type === "lb-kg") {
+        result = value * 0.45359237;
+    }
+
+    if (type === "c-f") {
+        result = (value * 9/5) + 32;
+    }
+
+    if (type === "f-c") {
+        result = (value - 32) * 5/9;
+    }
+
+    document.getElementById("conversionResult").innerHTML = `
+        <div class="result">
+            Result: ${result.toFixed(4)}
+        </div>
+    `;
+}
+
+
+/* =========================
+   AGE CALCULATOR
+========================= */
+
+function ageCalculator() {
+
+    modalTitle.textContent = "🎂 Age Calculator";
+
+    toolContent.innerHTML = `
+
+        <div class="form-group">
+
+            <label>Date of Birth</label>
+
+            <input
+                type="date"
+                id="birthDate"
+            >
+
+        </div>
+
+        <button class="primary-btn" onclick="calculateAge()">
+            Calculate Age
+        </button>
+
+        <div id="ageResult"></div>
+    `;
+}
+
+function calculateAge() {
+
+    const input =
+        document.getElementById("birthDate").value;
+
+    if (!input) return;
+
+    const birth =
+        new Date(input);
+
+    const today =
+        new Date();
+
+    let years =
+        today.getFullYear() - birth.getFullYear();
+
+    let months =
+        today.getMonth() - birth.getMonth();
+
+    let days =
+        today.getDate() - birth.getDate();
+
+    if (days < 0) {
+
+        months--;
+
+        const previousMonth =
+            new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                0
+            );
+
+        days += previousMonth.getDate();
+    }
+
+    if (months < 0) {
+
+        years--;
+        months += 12;
+    }
+
+    document.getElementById("ageResult").innerHTML = `
+        <div class="result">
+            Age: ${years} years, ${months} months, ${days} days
+        </div>
+    `;
+}
+
+
+/* =========================
+   INCREASE / DECREASE
+========================= */
+
+function increaseDecrease() {
+
+    modalTitle.textContent = "📈 Percentage Increase / Decrease";
+
+    toolContent.innerHTML = `
+
+        <div class="form-group">
+            <label>Original Value</label>
+            <input id="oldValue" type="number">
+        </div>
+
+        <div class="form-group">
+            <label>New Value</label>
+            <input id="newValue" type="number">
+        </div>
+
+        <button class="primary-btn" onclick="calculateChange()">
+            Calculate
+        </button>
+
+        <div id="changeResult"></div>
+    `;
+}
+
+function calculateChange() {
+
+    const oldValue =
+        Number(document.getElementById("oldValue").value);
+
+    const newValue =
+        Number(document.getElementById("newValue").value);
+
+    if (oldValue === 0) {
+
+        document.getElementById("changeResult").innerHTML =
+            `<div class="result">Original value cannot be zero.</div>`;
+
+        return;
+    }
+
+    const change =
+        ((newValue - oldValue) / oldValue) * 100;
+
+    const type =
+        change >= 0 ? "Increase" : "Decrease";
+
+    document.getElementById("changeResult").innerHTML = `
+        <div class="result">
+            ${type}: ${Math.abs(change).toFixed(2)}%
+        </div>
+    `;
+}
+
+
+/* =========================
+   PASSWORD GENERATOR
+========================= */
+
+function passwordGenerator() {
+
+    modalTitle.textContent = "🔐 Password Generator";
+
+    toolContent.innerHTML = `
+
+        <div class="form-group">
+
+            <label>Password Length</label>
+
+            <input
+                id="passwordLength"
+                type="number"
+                min="8"
+                max="50"
+                value="16"
+            >
+
+        </div>
+
+        <button class="primary-btn" onclick="generatePassword()">
+            Generate Password
+        </button>
+
+        <div id="passwordResult"></div>
+    `;
+}
+
+function generatePassword() {
+
+    let length =
+        Number(document.getElementById("passwordLength").value);
+
+    if (length < 8) length = 8;
+    if (length > 50) length = 50;
+
+    const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+    let password = "";
+
+    for (let i = 0; i < length; i++) {
+
+        password +=
+            chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    document.getElementById("passwordResult").innerHTML = `
+        <div class="result">
+            <div style="
+                word-break:break-all;
+                font-family:monospace;
+                font-size:17px;
+                margin-bottom:12px;
+            ">
+                ${password}
+            </div>
+
+            <button
+                class="secondary-btn"
+                onclick="copyPassword('${password}')"
+            >
+                📋 Copy
+            </button>
+        </div>
+    `;
+}
+
+function copyPassword(password) {
+
+    navigator.clipboard.writeText(password);
+
+    alert("Password copied!");
+}
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener("keydown", function(e) {
+
+    if (e.key === "Escape") {
+        closeTool();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
